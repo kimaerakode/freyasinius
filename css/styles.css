@@ -26,6 +26,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  transition: 0.4s ease;
 }
 
 *:not(dialog) {
