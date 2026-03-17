@@ -26,7 +26,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  transition: 0.4s ease;
 }
 
 *:not(dialog) {
@@ -70,6 +69,7 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
+  transition: 0.4s ease;
 }
 
 p {
@@ -177,8 +177,11 @@ h4 {
 
 li,
 p {
+  margin-bottom: var(--space-m);
+}
+
+.portfolio p {
   margin-top: var(--space-m);
-  margin-bottom: var(--space-xs-s);
 }
 
 .content ul {
