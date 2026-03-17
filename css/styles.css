@@ -1,4 +1,26 @@
-@import url("./fonts/stylesheet.css");
+@font-face {
+  font-family: "Nimbus Sans DOT";
+  src: url("../assets/fonts/nimbus-sans-d-ot-400.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nimbus Sans L";
+  src: url("../assets/fonts/NimbusSanL-Reg.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nimbus Sans L Cond";
+  src: url("../assets/fonts/NimbusSanL-ReguCond.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 *,
 *::before,
@@ -73,7 +95,8 @@ h6 {
 
 :root {
   --font-family:
-    "Nimbus Sans DOT", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    "Nimbus Sans DOT", "Helvetica Neue", "Helvetica Neue", "Helvetica", "Arial",
+    sans-serif;
   --color-grey-light: #e3e3e3;
   --color-grey-medium: #b1b1b1;
   --color-grey-dark: #878787;
@@ -100,7 +123,7 @@ body {
   color: var(--color-black);
   display: grid;
   grid-template-columns:
-    [full-start] 1fr [content-start] min(calc(100vw - var(--space-m)), 1080px)
+    [full-start] 1fr [content-start] min(calc(100vw - var(--space-m)), 920px)
     [content-end] 1fr [full-end];
 }
 
@@ -115,14 +138,13 @@ h1 {
   font-size: 160%;
   margin-top: var(--space-l);
   margin-bottom: var(--space-m-l);
-  letter-spacing: 3%;
+  letter-spacing: -0.5px;
 }
 
 h2 {
   color: var(--color-grey-dark);
   font-size: 110%;
   font-weight: normal;
-  text-transform: uppercase;
   letter-spacing: 2%;
   margin-top: var(--space-m-l);
   margin-bottom: var(--space-m);
@@ -136,12 +158,20 @@ h3 {
   margin-bottom: var(--space-m);
 }
 
+#about h3 {
+  color: var(--color-grey-dark);
+}
+
 h4 {
   font-weight: normal;
-
   text-transform: uppercase;
   font-size: 93%;
   letter-spacing: -1%;
+}
+
+.portfolio h4 {
+  margin-top: var(--space-m-l);
+  margin-bottom: var(--space-xs);
 }
 
 li,
@@ -179,6 +209,7 @@ header {
   grid-template-columns: subgrid;
   grid-column: full;
   background-color: var(--color-grey-medium);
+  z-index: +1;
 
   nav {
     grid-column: content;
@@ -192,6 +223,10 @@ header {
 
     li {
       margin: 0;
+
+      a {
+        letter-spacing: -1%;
+      }
     }
   }
 }
@@ -212,6 +247,20 @@ header {
   }
 }
 
+.col-1 {
+  grid-column: 1;
+}
+.col-2 {
+  grid-column: 2;
+}
+.col-3 {
+  grid-column: 3;
+}
+
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
 .col-span-2 {
   grid-column: span 2;
 }
@@ -220,7 +269,82 @@ header {
   grid-column: span 3;
 }
 
-.portfolio img {
-  width: 50%;
-  margin-top: var(--space-m);
+.row-1 {
+  grid-row: 1;
+}
+
+.row-2 {
+  grid-row: 2;
+}
+
+.row-3 {
+  grid-row: 3;
+}
+
+.row_span-2 {
+  grid-row: span 2;
+}
+
+.row_2-3 {
+  grid-row: 2 / 3;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid_auto-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+.content {
+  grid-column: content;
+}
+
+.portfolio {
+  img {
+    max-width: 50%;
+  }
+
+  .grid_auto-cols img {
+    max-width: 100%;
+  }
+
+  .grid_auto-cols .compact-span img {
+    width: 100%;
+    height: auto;
+    max-height: 23.95rem;
+    object-fit: cover;
+  }
+
+  .full img {
+    width: auto;
+    min-height: 100%;
+    object-fit: contain;
+  }
+
+  p {
+    margin-bottom: var(--space-m);
+  }
+
+  video {
+    max-width: 100%;
+  }
+
+  ul > li + li {
+    margin-top: var(--space-xxl);
+  }
+}
+
+.paragraph {
+  margin-top: 1em;
+}
+
+.scroll-section {
 }
