@@ -198,6 +198,7 @@ a {
   text-decoration: 1px solid underline var(--color-black);
   text-underline-offset: 2px;
   color: inherit;
+  letter-spacing: -1%;
 }
 
 ul {
@@ -214,25 +215,21 @@ header {
   grid-column: full;
   background-color: var(--color-grey-medium);
   z-index: +1;
+}
 
-  nav {
-    grid-column: content;
-  }
+header nav {
+  grid-column: content;
+}
 
-  ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    padding-block: var(--space-s);
+header ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding-block: var(--space-s);
+}
 
-    li {
-      margin: 0;
-
-      a {
-        letter-spacing: -1%;
-      }
-    }
-  }
+header li {
+  margin: 0;
 }
 
 .gallery {
@@ -241,14 +238,12 @@ header {
   gap: var(--space-s);
   padding-block: var(--space-s);
   justify-content: center;
+}
 
-  .image-wrapper {
-    img {
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-    }
-  }
+.gallery .image-wrapper img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .col-1 {
@@ -311,44 +306,39 @@ header {
   grid-column: content;
 }
 
-.portfolio {
-  img {
-    max-width: 50%;
-  }
+.portfolio img {
+  max-width: 50%;
+}
 
-  .grid_auto-cols img {
-    max-width: 100%;
-  }
+.portfolio .grid_auto-cols img {
+  max-width: 100%;
+}
 
-  .grid_auto-cols .compact-span img {
-    width: 100%;
-    height: auto;
-    max-height: 23.95rem;
-    object-fit: cover;
-  }
+.portfolio .grid_auto-cols .compact-span img {
+  width: 100%;
+  height: auto;
+  max-height: 23.95rem;
+  object-fit: cover;
+}
 
-  .full img {
-    width: auto;
-    min-height: 100%;
-    object-fit: contain;
-  }
+.portfolio .full img {
+  width: auto;
+  min-height: 100%;
+  object-fit: contain;
+}
 
-  p {
-    margin-bottom: var(--space-m);
-  }
+.portfolio p {
+  margin-bottom: var(--space-m);
+}
 
-  video {
-    max-width: 100%;
-  }
+.portfolio video {
+  max-width: 100%;
+}
 
-  ul > li + li {
-    margin-top: var(--space-xxl);
-  }
+.portfolio ul > li + li {
+  margin-top: var(--space-xxl);
 }
 
 .paragraph {
   margin-top: 1em;
-}
-
-.scroll-section {
 }
