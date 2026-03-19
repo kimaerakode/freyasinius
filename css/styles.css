@@ -102,6 +102,12 @@ h6 {
   --color-grey-medium: #b1b1b1;
   --color-grey-dark: #878787;
   --color-black: #010101;
+  --color-blue: rgb(0, 44, 219);
+  --color-deep-blue: rgb(0, 42, 255);
+  --color-purple: rgb(161, 107, 216);
+  --color-purple-light: rgb(199, 189, 225);
+  --color-green: rgb(0, 239, 56);
+  --space-xxs: 0.125rem;
   --space-xs: 0.25rem;
   --space-xs-s: calc((var(--space-xs) + var(--space-s)) / 2);
   --space-s: calc(var(--space-xs) * 2);
@@ -112,11 +118,14 @@ h6 {
   --space-l-xl: calc((var(--space-l) + var(--space-xl)) / 2);
   --space-xl: 3rem;
   --space-xxl: calc(var(--space-l) * 2);
+  --plyr-color-main: var(--color-deep-blue);
 }
 
 html {
   font-family: var(--font-family);
   background-color: var(--color-grey-dark);
+  scroll-padding-top: var(--space-xxl);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -135,7 +144,7 @@ main {
 }
 
 h1 {
-  color: rgb(0, 13, 255);
+  color: var(--color-deep-blue);
   font-size: 160%;
   margin-top: var(--space-l);
   margin-bottom: var(--space-m-l);
@@ -199,6 +208,7 @@ a {
   text-underline-offset: 2px;
   color: inherit;
   letter-spacing: -1%;
+  position: relative;
 }
 
 ul {
@@ -235,9 +245,13 @@ header li {
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-s);
+
   padding-block: var(--space-s);
   justify-content: center;
+}
+
+.image-wrapper {
+  position: relative;
 }
 
 .gallery .image-wrapper img {
@@ -254,6 +268,9 @@ header li {
 }
 .col-3 {
   grid-column: 3;
+}
+.col-4 {
+  grid-column: 4;
 }
 
 .col-span-full {
@@ -292,9 +309,27 @@ header li {
   display: flex;
 }
 
-.grid_auto-cols {
+.grid {
   display: grid;
+  margin-bottom: var(--space-xxl);
+}
+
+.grid img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.grid_auto-cols {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid_3x1 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 2fr 1fr;
+}
+
+.grid_2-1 {
+  grid-template-columns: 2fr 1fr;
 }
 
 .subgrid {
@@ -310,29 +345,16 @@ header li {
   max-width: 50%;
 }
 
-.portfolio .grid_auto-cols img {
+.portfolio .grid img {
   max-width: 100%;
-}
-
-.portfolio .grid_auto-cols .compact-span img {
-  width: 100%;
-  height: auto;
-  max-height: 23.95rem;
-  object-fit: cover;
-}
-
-.portfolio .full img {
-  width: auto;
-  min-height: 100%;
-  object-fit: contain;
 }
 
 .portfolio p {
   margin-bottom: var(--space-m);
 }
 
-.portfolio video {
-  max-width: 100%;
+#deerar iframe {
+  width: 50%;
 }
 
 .portfolio ul > li + li {
@@ -342,3 +364,119 @@ header li {
 .paragraph {
   margin-top: 1em;
 }
+
+#deerar iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: 100%;
+}
+
+#erosio iframe {
+  aspect-ratio: 9/16;
+  width: auto;
+  height: 100%;
+}
+
+#erosio .image-wrapper img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+.anchor {
+  scroll-padding-top: var(--space-xxl);
+}
+
+a[href="./portfolio/#erosio"]::before, a[href="./portfolio/#yvonnes"]::before {
+  content: "Erosio";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: fit-content;
+  height: fit-content;
+  color: transparent;
+  background: var(--color-purple-light);
+  outline: 1px solid var(--color-black);
+  padding-block: var(--space-xxs);
+  padding-inline: var(--space-m);
+  margin-right: var(--space-s);
+  margin-top: var(--space-s);
+  align-content: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+ mix-blend-mode: saturation;
+}
+a[href="./portfolio/#erosio"]::after, a[href="./portfolio/#yvonnes"]::after {
+  content: "erosio";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: fit-content;
+  height: fit-content;
+  color: transparent;
+  background: var(--color-purple);
+  outline: 1px solid var(--color-black);
+  padding-block: var(--space-xs-s);
+  padding-inline: var(--space-m);
+  margin-right: var(--space-s);
+  margin-top: var(--space-s);
+  align-content: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+  z-index: +2;
+mix-blend-mode: saturation;
+}
+
+a[href="./portfolio/#erosio"]:hover::before, a[href="./portfolio/#yvonnes"]:hover::before {
+  opacity: 1;
+}
+
+a[href="./portfolio/#erosio"]:hover::after, a[href="./portfolio/#yvonnes"]:hover::after {
+  opacity: .5;
+}
+
+
+
+.image-wrapper button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: fit-content;
+  height: min-content;
+  color: var(--color-black);
+  background: rgba(255, 255, 255, 0.643);
+  outline: 1px solid var(--color-black);
+  padding-block: var(--space-xxs);
+  padding-inline: var(--space-m);
+  margin-right: var(--space-s);
+  margin-top: var(--space-s);
+  align-content: center;
+  justify-content: center;
+  font-size: 14px;
+  font-style: italic;
+  backdrop-filter: blur(0.8px);
+  opacity: 0;
+  transition: opacity 0.13s ease;
+  cursor: pointer;
+  border: 1px solid var(--color-grey-medium);
+  
+}
+
+.image-wrapper:hover button {
+  opacity: 1;
+}
+
+.image-wrapper button:hover {
+  border-left: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--color-grey-light);
+}
+
+
+
+
