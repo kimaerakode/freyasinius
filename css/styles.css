@@ -98,6 +98,7 @@ h6 {
   --font-family:
     "Nimbus Sans DOT", "Helvetica Neue", "Helvetica Neue", "Helvetica", "Arial",
     sans-serif;
+  --color-ultralight: #f1f1f1;
   --color-grey-light: #e3e3e3;
   --color-grey-medium: #b1b1b1;
   --color-grey-dark: #878787;
@@ -129,7 +130,7 @@ html {
 }
 
 body {
-  background-color: var(--color-grey-light);
+  background-color: var(--color-ultralight);
   color: var(--color-black);
   display: grid;
   grid-template-columns:
@@ -141,6 +142,10 @@ main {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: content;
+  background-color: var(--color-ultralight);
+  position: relative;
+
+  padding-bottom: var(--space-xxl);
 }
 
 h1 {
@@ -152,41 +157,51 @@ h1 {
 }
 
 h2 {
-  color: var(--color-grey-dark);
-  font-size: 110%;
+  font-size: 130%;
   font-weight: normal;
   letter-spacing: 2%;
   margin-top: var(--space-m-l);
-  margin-bottom: var(--space-m);
+}
+
+#about h2 {
+  color: var(--color-grey-dark);
+}
+h2:has(+ h3) {
+  margin-bottom: 0;
 }
 
 h3 {
   font-weight: normal;
   letter-spacing: -2%;
-  font-size: 120%;
-  margin-top: var(--space-m-l);
+  font-size: 110%;
+  margin-top: var(--space-xs);
   margin-bottom: var(--space-m);
+  color: var(--color-grey-dark);
 }
 
-#about h3 {
-  color: var(--color-grey-dark);
+h2 + h3 {
+  font-style: normal;
+  margin-top: 0;
+  margin-bottom: var(--space-m-l);
 }
 
 h4 {
   font-weight: normal;
-  text-transform: uppercase;
-  font-size: 93%;
   letter-spacing: -1%;
-}
-
-.portfolio h4 {
   margin-top: var(--space-m-l);
   margin-bottom: var(--space-xs);
+}
+
+#about h4 {
+  font-style: italic;
 }
 
 li,
 p {
   margin-bottom: var(--space-m);
+}
+h2 + li {
+  margin-top: var(--space-m);
 }
 
 .portfolio p {
@@ -200,7 +215,15 @@ p {
 
 .content {
   min-height: 100vh;
-  background-color: var(--color-grey-light);
+}
+
+.content.portfolio h1 {
+  grid-column: content;
+}
+
+.content.portfolio article,
+.content.portfolio section {
+  row-gap: var(--space-xxl);
 }
 
 a {
@@ -258,6 +281,37 @@ header li {
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+.gallery .image-wrapper:nth-child(3) img {
+  object-fit: cover;
+  block-size: 100%;
+  inline-size: 100%;
+  object-position: right center;
+  transform: scale(1.15);
+  transform-origin: center;
+}
+
+.gallery .image-wrapper:nth-child(3) {
+  overflow: hidden;
+}
+
+.gallery .image-wrapper:nth-child(1n) {
+  border-top: 1px solid var(--color-blue);
+  border-left: 1px solid var(--color-blue);
+}
+
+.gallery .image-wrapper:nth-child(2n) {
+  border-right: 1px solid var(--color-blue);
+}
+
+.gallery .image-wrapper:nth-child(7) {
+  border-right: 1px solid var(--color-blue);
+}
+
+.gallery .image-wrapper:nth-child(9),
+.gallery .image-wrapper:nth-child(10) {
+  border-bottom: 1px solid var(--color-blue);
 }
 
 .col-1 {
@@ -325,7 +379,6 @@ header li {
 
 .grid_3x1 {
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 2fr 1fr;
 }
 
 .grid_2-1 {
@@ -365,7 +418,9 @@ header li {
   margin-top: 1em;
 }
 
-#deerar iframe {
+#deerar iframe,
+#noeglebarn iframe,
+#yvonnes iframe {
   width: 100%;
   aspect-ratio: 16/9;
   height: 100%;
@@ -387,71 +442,15 @@ header li {
   scroll-padding-top: var(--space-xxl);
 }
 
-a[href="./portfolio/#erosio"]::before, a[href="./portfolio/#yvonnes"]::before {
-  content: "Erosio";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: fit-content;
-  height: fit-content;
-  color: transparent;
-  background: var(--color-purple-light);
-  outline: 1px solid var(--color-black);
-  padding-block: var(--space-xxs);
-  padding-inline: var(--space-m);
-  margin-right: var(--space-s);
-  margin-top: var(--space-s);
-  align-content: center;
-  justify-content: center;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.1s ease;
-  pointer-events: none;
- mix-blend-mode: saturation;
-}
-a[href="./portfolio/#erosio"]::after, a[href="./portfolio/#yvonnes"]::after {
-  content: "erosio";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: fit-content;
-  height: fit-content;
-  color: transparent;
-  background: var(--color-purple);
-  outline: 1px solid var(--color-black);
-  padding-block: var(--space-xs-s);
-  padding-inline: var(--space-m);
-  margin-right: var(--space-s);
-  margin-top: var(--space-s);
-  align-content: center;
-  justify-content: center;
-  font-size: 14px;
-  opacity: 0;
-  transition: opacity 0.1s ease;
-  pointer-events: none;
-  z-index: +2;
-mix-blend-mode: saturation;
-}
-
-a[href="./portfolio/#erosio"]:hover::before, a[href="./portfolio/#yvonnes"]:hover::before {
-  opacity: 1;
-}
-
-a[href="./portfolio/#erosio"]:hover::after, a[href="./portfolio/#yvonnes"]:hover::after {
-  opacity: .5;
-}
-
-
-
 .image-wrapper button {
   position: absolute;
   top: 0;
   right: 0;
   width: fit-content;
-  height: min-content;
-  color: var(--color-black);
-  background: rgba(255, 255, 255, 0.643);
-  outline: 1px solid var(--color-black);
+  height: fit-content;
+  color: var(--color-blue);
+  background: var(--color-ultralight);
+  outline: 1px solid var(--color-blue);
   padding-block: var(--space-xxs);
   padding-inline: var(--space-m);
   margin-right: var(--space-s);
@@ -460,12 +459,10 @@ a[href="./portfolio/#erosio"]:hover::after, a[href="./portfolio/#yvonnes"]:hover
   justify-content: center;
   font-size: 14px;
   font-style: italic;
-  backdrop-filter: blur(0.8px);
   opacity: 0;
   transition: opacity 0.13s ease;
   cursor: pointer;
-  border: 1px solid var(--color-grey-medium);
-  
+  border: 1px solid var(--color-ultralight);
 }
 
 .image-wrapper:hover button {
@@ -473,10 +470,41 @@ a[href="./portfolio/#erosio"]:hover::after, a[href="./portfolio/#yvonnes"]:hover
 }
 
 .image-wrapper button:hover {
-  border-left: 1px solid var(--color-grey-light);
-  border-top: 1px solid var(--color-grey-light);
+  background-color: var(--color-grey-light);
 }
 
+/* View Scroll Timeline  */
 
+@keyframes entry {
+  from {
+    translate: 0 15rem;
+  }
+}
 
+@keyframes exit {
+  to {
+    opacity: 0;
+  }
+}
 
+#portfolio header::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  inline-size: 100%;
+  block-size: 4px;
+  background: var(--color-blue);
+  transform-origin: 0 center;
+  scale: 0 1;
+  animation: progress linear;
+  animation-timeline: scroll();
+  z-index: 2;
+}
+
+@keyframes progress {
+  to {
+    scale: 1 1;
+  }
+}
