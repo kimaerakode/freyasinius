@@ -69,7 +69,6 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
-  transition: 0.4s ease;
 }
 
 p {
@@ -119,12 +118,11 @@ h6 {
   --space-l-xl: calc((var(--space-l) + var(--space-xl)) / 2);
   --space-xl: 3rem;
   --space-xxl: calc(var(--space-l) * 2);
-  --plyr-color-main: var(--color-deep-blue);
 }
 
 html {
   font-family: var(--font-family);
-  background-color: var(--color-grey-dark);
+  background-color: var(--color-deep-blue);
   scroll-padding-top: var(--space-xxl);
   scroll-behavior: smooth;
 }
@@ -144,8 +142,12 @@ main {
   grid-column: content;
   background-color: var(--color-ultralight);
   position: relative;
-
   padding-bottom: var(--space-xxl);
+}
+
+#portfolio main,
+#about main {
+  padding-top: var(--space-xxl);
 }
 
 h1 {
@@ -154,12 +156,14 @@ h1 {
   margin-top: var(--space-l);
   margin-bottom: var(--space-m-l);
   letter-spacing: -0.5px;
+  text-box-trim: trim-start;
+  text-box-edge: cap alphabetic;
 }
 
 h2 {
   font-size: 130%;
   font-weight: normal;
-  letter-spacing: 2%;
+  letter-spacing: -2%;
   margin-top: var(--space-m-l);
 }
 
@@ -227,13 +231,18 @@ h2 + li {
 }
 
 a {
-  text-decoration: 1px solid underline var(--color-black);
+  text-decoration: 1px solid underline transparent;
   text-underline-offset: 2px;
   color: inherit;
   letter-spacing: -1%;
   position: relative;
+  transition: text-decoration-color 0.13s ease;
 }
 
+a:hover,
+a.active {
+  text-decoration: 1px solid underline var(--color-black);
+}
 ul {
   margin: 0;
   padding: 0;
@@ -245,31 +254,50 @@ header {
   top: 0;
   display: grid;
   grid-template-columns: subgrid;
-  grid-column: full;
-  background-color: var(--color-grey-medium);
+  grid-column: full-start;
   z-index: +1;
+  height: fit-content;
+  margin-left: var(--space-m);
+  color: var(--color-black);
+}
+
+header h1 {
+  margin: 0;
+  color: var(--color-black);
+  font-size: 120%;
+}
+
+header a:has(h1) {
+  text-decoration: none;
+}
+
+header a:has(h1):hover {
+  text-decoration: none;
 }
 
 header nav {
-  grid-column: content;
+  grid-column: full-start;
 }
 
 header ul {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  padding-block: var(--space-s);
+  align-items: start;
+  margin-block: var(--space-l);
+  gap: var(--space-s);
 }
 
 header li {
   margin: 0;
+  text-box-trim: trim-start;
+  text-box-edge: cap alphabetic;
 }
 
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
-  padding-block: var(--space-s);
+  margin-block: var(--space-l);
   justify-content: center;
 }
 
@@ -297,21 +325,21 @@ header li {
 }
 
 .gallery .image-wrapper:nth-child(1n) {
-  border-top: 1px solid var(--color-blue);
-  border-left: 1px solid var(--color-blue);
+  border-top: 1px solid var(--color-deep-blue);
+  border-left: 1px solid var(--color-deep-blue);
 }
 
 .gallery .image-wrapper:nth-child(2n) {
-  border-right: 1px solid var(--color-blue);
+  border-right: 1px solid var(--color-deep-blue);
 }
 
 .gallery .image-wrapper:nth-child(7) {
-  border-right: 1px solid var(--color-blue);
+  border-right: 1px solid var(--color-deep-blue);
 }
 
 .gallery .image-wrapper:nth-child(9),
 .gallery .image-wrapper:nth-child(10) {
-  border-bottom: 1px solid var(--color-blue);
+  border-bottom: 1px solid var(--color-deep-blue);
 }
 
 .col-1 {
@@ -473,38 +501,19 @@ header li {
   background-color: var(--color-grey-light);
 }
 
-/* View Scroll Timeline  */
-
-@keyframes entry {
-  from {
-    translate: 0 15rem;
-  }
-}
-
-@keyframes exit {
-  to {
-    opacity: 0;
-  }
-}
-
-#portfolio header::after {
+body::before {
   content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  inline-size: 100%;
+  position: fixed;
+  top: 0;
+  inline-size: 100vw;
   block-size: 4px;
-  background: var(--color-blue);
-  transform-origin: 0 center;
-  scale: 0 1;
-  animation: progress linear;
-  animation-timeline: scroll();
-  z-index: 2;
+  background: var(--color-deep-blue);
+  z-index: 10;
 }
 
-@keyframes progress {
-  to {
-    scale: 1 1;
-  }
+footer {
+  grid-column: full;
+  height: 4px;
+  width: 100vw;
+  background: var(--color-deep-blue);
 }
