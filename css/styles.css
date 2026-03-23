@@ -149,6 +149,9 @@ main {
   padding-bottom: var(--space-xxl);
 }
 
+ #home main {
+  transition:  .4s ease;
+ }
 h1 {
   color: var(--color-black);
   font-size: 320%;
@@ -209,9 +212,11 @@ h4 {
   margin-bottom: var(--space-xs);
 }
 
-footer h4 {
+footer h4,
+#about footer h4 {
   color: var(--color-grey-medium);
   margin: 0;
+  font-style: italic;
 }
 
 #about h4 {
@@ -291,6 +296,7 @@ header {
   height: fit-content;
   margin-left: var(--space-m);
   color: var(--color-black);
+  transition:  .4s ease;
 }
 
 .header-toggle {
@@ -298,17 +304,29 @@ header {
 }
 
 @media screen and (max-width: 1280px) {
-  header {
+  #home header {
+    
+    position: static;
+    margin-top: var(--space-xl);
+  }
+
+  #home main {
+    grid-row: 2;
+  }
+  #portfolio header,
+  #about header {
     margin-left: 0;
     height: 100vh;
-    max-width: 50% !important;
     background-color: var(--color-ultralight);
     z-index: 9;
     overflow: hidden;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
   }
 
-  header.is-hidden {
+  #portfolio header.is-hidden,
+  #about header.is-hidden {
     transform: translateY(calc(-100% - var(--space-s)));
     opacity: 0;
     visibility: hidden;
@@ -321,11 +339,13 @@ header {
     grid-row: 1;
   }
 
-  header nav {
+
+ header nav {
     align-self: center;
   }
 
-  header ul {
+  
+ header ul {
     align-items: center !important;
     justify-content: center;
   }
@@ -334,9 +354,10 @@ header {
     grid-row: 1;
   }
 
-  .header-toggle {
+  #portfolio .header-toggle,
+  #about .header-toggle {
     position: fixed;
-    top: var(--space-s);
+    top: var(--space-m);
     right: var(--space-s);
     z-index: 20;
     border: 1px solid var(--color-black);
@@ -347,7 +368,8 @@ header {
     display: none;
   }
 
-  .header-toggle.is-visible {
+  #portfolio .header-toggle.is-visible,
+  #about .header-toggle.is-visible {
     display: block;
   }
 }
@@ -475,10 +497,6 @@ header li {
 }
 
 .gallery .image-wrapper:nth-child(2n) {
-  border-right: 1px solid var(--color-black);
-}
-
-.gallery .image-wrapper:nth-child(7) {
   border-right: 1px solid var(--color-black);
 }
 
@@ -623,6 +641,8 @@ button {
   border: 1px solid var(--color-black);
   cursor: pointer;
 }
+
+
 .image-wrapper button {
   position: absolute;
   top: 0;
@@ -636,8 +656,10 @@ button {
   z-index: 5;
 }
 
-.image-wrapper:hover button {
-  opacity: 1;
+@media screen and (min-width: 920px) {
+  .image-wrapper:hover button {
+    opacity: 1;
+  }
 }
 
 button:hover {
