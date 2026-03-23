@@ -147,6 +147,7 @@ main {
   background-color: var(--color-ultralight);
   position: relative;
   padding-bottom: var(--space-xxl);
+  height: 100%;
 }
 
  #home main {
@@ -585,8 +586,10 @@ header li {
   grid-column: content;
 }
 
+@media screen and (min-width: 640px) {
 .portfolio img {
   max-width: 50%;
+}
 }
 
 .portfolio .grid img {
@@ -678,7 +681,7 @@ body::before {
 
 footer {
   grid-column: full;
-  height: fit-content;
+
   width: 100vw;
   background: var(--color-black);
   padding-inline: var(--space-m);
