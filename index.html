@@ -9,16 +9,32 @@
     <link
       rel="stylesheet"
       href="./css/styles.css" />
+    <script
+      src="script.js"
+      defer></script>
   </head>
   <body id="home">
     <header>
       <nav>
         <ul>
           <li>
-            <a href=""> <h1>Freya Sinius</h1></a>
+            <a href="./"> <button>Freya Sinius</button></a>
           </li>
-          <li><a href="./portfolio/">Portfolio</a></li>
-          <li><a href="./about/">About</a></li>
+          <div class="nav">
+            <li>
+              <a
+                class="menu"
+                href="./portfolio/"
+                ><button>Portfolio</button></a
+              >
+            </li>
+            <div class="sub-nav">
+              <li><a href="./portfolio/#art">Art</a></li>
+              <li><a href="./portfolio/#film">Film</a></li>
+              <li><a href="./portfolio/#musicvideo">Music video</a></li>
+            </div>
+          </div>
+          <li><a href="./about/"><button>About</button></a></li>
         </ul>
       </nav>
     </header>
@@ -113,6 +129,6 @@
         </section>
       </div>
     </main>
-    <footer></footer>
+    <footer><h4>2026</h4></footer>
   </body>
 </html>
