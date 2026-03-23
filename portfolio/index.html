@@ -9,14 +9,34 @@
     <link
       rel="stylesheet"
       href="../css/styles.css" />
+    <script
+      src="../script.js"
+      defer></script>
   </head>
   <body id="portfolio">
     <header>
       <nav>
         <ul>
-          <li><a href="./../index.html">Freya Sinius Kofod</a></li>
-          <li><a href="">Portfolio</a></li>
-          <li><a href="../about/">About</a></li>
+          <li>
+            <a href="./../index.html"> <button>Freya Sinius</button></a>
+          </li>
+          <div class="nav">
+            <li>
+              <a
+                class="menu active"
+                href="./"
+                ><button>Portfolio</button></a
+              >
+            </li>
+            <div class="sub-nav">
+              <li><a href="#art">Art</a></li>
+              <li><a href="#film">Film</a></li>
+              <li><a href="#musicvideo">Music video</a></li>
+            </div>
+          </div>
+          <li>
+            <a href="../about/"><button>About</button></a>
+          </li>
         </ul>
       </nav>
     </header>
@@ -31,7 +51,7 @@
             <h2 class="portfolio-header">DEERAR</h2>
             <h3>Art project</h3>
 
-            <img
+            <img width="286" height="130"
               src="../assets/art/deerar/deerar-logo.png"
               alt="" />
 
@@ -48,7 +68,7 @@
                 are experienced.</span
               >
             </p>
-            <img
+            <img width="866" height="724"
               src="../assets/art/deerar/pressebillede.jpg"
               alt="" />
 
@@ -102,41 +122,41 @@
             <h4>Stills</h4>
 
             <div class="grid grid_auto-cols">
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still1.png"
                 alt="" />
 
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still2.png"
                 alt="" />
 
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still3.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 class="col-span-full"
                 src="../assets/art/erosio/stills/still4.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still5.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still6.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still7.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 class="col-span-full"
                 src="../assets/art/erosio/stills/still8.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still9.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still10.png"
                 alt="" />
-              <img
+              <img width="2880" height="1880"
                 src="../assets/art/erosio/stills/still11.png"
                 alt="" />
             </div>
@@ -145,27 +165,27 @@
 
             <div class="grid grid_auto-cols">
               <div class="image-wrapper row-4 col-1">
-                <img
+                <img width="3024" height="4032"
                   src="../assets/art/erosio/vandvaerk-installation/2340.jpeg"
                   alt="" />
               </div>
               <div class="image-wrapper row-4 col-2">
-                <img
+                <img width="3024" height="4032"
                   src="../assets/art/erosio/vandvaerk-installation/2352.jpeg"
                   alt="" />
               </div>
               <div class="image-wrapper row-1 col-2">
-                <img
+                <img width="4480" height="6720"
                   src="../assets/art/erosio/vandvaerk-installation/8135.jpg"
                   alt="" />
               </div>
               <div class="image-wrapper row-2 col-span-2">
-                <img
+                <img width="6720" height="4480"
                   src="../assets/art/erosio/vandvaerk-installation/8159.jpg"
                   alt="" />
               </div>
               <div class="image-wrapper row-3 col-span-2">
-                <img
+                <img width="6720" height="4480"
                   src="../assets/art/erosio/vandvaerk-installation/8166.jpg"
                   alt="" />
               </div>
@@ -179,7 +199,9 @@
               </div>
             </div>
           </section>
-          <section id="noeglebarn">
+          <section
+            id="noeglebarn"
+            class="anchor">
             <h2 class="portfolio-header">Nøglebarn</h2>
             <h3>Art project</h3>
             <h4>Video</h4>
@@ -209,8 +231,8 @@
             </div>
           </section>
         </article>
-        <article id="films">
-          <section>
+        <article id="film">
+          <section id="bureauet-for-offentlig-udskamning">
             <h2>Bureauet for Offentlig Udskamning</h2>
             <h3>Short film</h3>
             <h4>Stills</h4>
@@ -252,7 +274,9 @@
               </div>
             </div>
           </section>
-          <section id="foelelsernes-opdragelse">
+          <section
+            id="foelelsernes-opdragelse"
+            class="anchor">
             <h2>Følelsernes Opdragelse</h2>
             <h3>Short film</h3>
             <h4>Stills</h4>
@@ -294,7 +318,9 @@
               </div>
             </div>
           </section>
-          <section id="undergravet">
+          <section
+            id="undergravet"
+            class="anchor">
             <h2>Undergravet</h2>
             <h3>Short film</h3>
 
@@ -355,7 +381,9 @@
           </section>
         </article>
         <article id="musicvideo">
-          <section id="yvonnes">
+          <section
+            id="yvonnes"
+            class="anchor">
             <h2>yvonnes</h2>
             <h3>Music video</h3>
             <h4>yvonnes – Sober Love</h4>
@@ -424,5 +452,17 @@
         </article>
       </div>
     </main>
+    <footer><h4>2026</h4></footer>
+    <script>
+      window.addEventListener("load", () => {
+        const { hash } = window.location;
+        if (!hash) return;
+
+        const target = document.querySelector(hash);
+        if (target) {
+          target.scrollIntoView({ block: "start" });
+        }
+      });
+    </script>
   </body>
 </html>
