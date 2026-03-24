@@ -686,6 +686,7 @@
         transform 0.25s ease,
         opacity 0.25s ease,
         background-color 0.25s ease;
+      border-bottom: 8px solid var(--color-black);
     }
 
     #portfolio header.is-hidden,
