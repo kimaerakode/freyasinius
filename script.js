@@ -114,3 +114,81 @@ if (header && headerNav) {
   // Ensure UI and scroll lock are in sync on initial load.
   syncHeaderToggle();
 }
+
+// Portfolio section visibility state
+if (pageId === "portfolio") {
+  const portfolioArticles = Array.from(
+    document.querySelectorAll("#portfolio .content.portfolio > article[id]"),
+  );
+
+  if (portfolioArticles.length > 0) {
+    const articleIds = new Set(portfolioArticles.map((article) => article.id));
+    const allHashLinks = Array.from(
+      document.querySelectorAll('#portfolio a[href^="#"]'),
+    );
+
+    const getHashId = (value) => {
+      if (!value || !value.startsWith("#") || value.length < 2) return null;
+
+      try {
+        return decodeURIComponent(value.slice(1));
+      } catch {
+        return value.slice(1);
+      }
+    };
+
+    const getArticleForTargetId = (targetId) => {
+      if (!targetId) return null;
+      if (articleIds.has(targetId)) return targetId;
+
+      const targetElement = document.getElementById(targetId);
+      const parentArticle = targetElement?.closest("article[id]");
+      return parentArticle?.id ?? null;
+    };
+
+    const setVisibleArticle = (articleId) => {
+      portfolioArticles.forEach((article) => {
+        article.hidden = article.id !== articleId;
+      });
+
+      allHashLinks.forEach((link) => {
+        const linkTargetId = getHashId(link.getAttribute("href"));
+        const linkArticleId = getArticleForTargetId(linkTargetId);
+        link.classList.toggle("active", linkArticleId === articleId);
+      });
+    };
+
+    const showFromHash = (hash, shouldScroll = false) => {
+      const targetId = getHashId(hash);
+      const targetArticleId =
+        getArticleForTargetId(targetId) ?? portfolioArticles[0].id;
+
+      setVisibleArticle(targetArticleId);
+
+      if (!shouldScroll || !targetId) return;
+
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ block: "start" });
+      }
+    };
+
+    allHashLinks.forEach((link) => {
+      const targetId = getHashId(link.getAttribute("href"));
+      const targetArticleId = getArticleForTargetId(targetId);
+      if (!targetArticleId) return;
+
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        showFromHash(`#${targetId}`, true);
+        history.replaceState(null, "", `#${targetId}`);
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      showFromHash(window.location.hash, true);
+    });
+
+    showFromHash(window.location.hash, Boolean(window.location.hash));
+  }
+}
