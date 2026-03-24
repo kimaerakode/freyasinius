@@ -2,6 +2,27 @@ const header = document.querySelector("header");
 const headerNav = document.querySelector("header nav");
 const mobileMedia = window.matchMedia("(max-width: 1280px)");
 const headerHiddenKey = "mobileHeaderHidden";
+const pageId = document.body?.id;
+const hasOverlayMobileMenu = pageId === "about" || pageId === "portfolio";
+
+let lockedScrollY = 0;
+
+const setScrollLock = (isLocked) => {
+  if (!hasOverlayMobileMenu) return;
+
+  if (isLocked) {
+    lockedScrollY = window.scrollY;
+    document.documentElement.classList.add("menu-open");
+    document.body.classList.add("menu-open");
+    document.body.style.top = `-${lockedScrollY}px`;
+    return;
+  }
+
+  document.documentElement.classList.remove("menu-open");
+  document.body.classList.remove("menu-open");
+  document.body.style.top = "";
+  window.scrollTo(0, lockedScrollY);
+};
 
 if (header && headerNav) {
   const headerToggle = document.createElement("button");
@@ -34,6 +55,7 @@ if (header && headerNav) {
   const syncHeaderToggle = () => {
     const isMobile = mobileMedia.matches;
     const isHeaderHidden = header.classList.contains("is-hidden");
+    const isMenuOpen = isMobile && !isHeaderHidden;
 
     headerToggle.classList.toggle("is-visible", isMobile);
     headerToggle.setAttribute("aria-hidden", String(!isMobile));
@@ -42,6 +64,8 @@ if (header && headerNav) {
       "aria-label",
       isHeaderHidden ? "Show navigation" : "Hide navigation",
     );
+
+    setScrollLock(isMenuOpen);
   };
 
   headerNav.addEventListener("click", (event) => {
