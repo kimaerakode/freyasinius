@@ -380,9 +380,12 @@
     padding-inline: var(--space-m);
     padding-block: var(--space-s);
     display: flex;
+    align-self: end;
     align-items: end;
     justify-content: end;
     z-index: 10;
+    position: sticky;
+    bottom: 0;
   }
 }
 
@@ -547,7 +550,9 @@
   }
 
   button:hover,
-  a:hover > button {
+  a:hover > button,
+  button:focus-visible,
+  a:focus-visible > button {
     background-color: var(--color-grey-light);
   }
 
@@ -772,6 +777,13 @@
       display: none;
     }
 
+    #portfolio .header-toggle:hover,
+    #about .header-toggle:hover,
+    #portfolio .header-toggle:focus-visible,
+    #about .header-toggle:focus-visible {
+      background-color: var(--color-grey-light);
+    }
+
     #portfolio .header-toggle.is-visible,
     #about .header-toggle.is-visible {
       display: block;
@@ -779,7 +791,8 @@
   }
 
   @media screen and (min-width: 920px) {
-    .image-wrapper:hover button {
+    .image-wrapper:hover button,
+    .image-wrapper:focus-within button {
       opacity: 1;
     }
 
