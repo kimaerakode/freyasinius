@@ -152,8 +152,13 @@
   h2 {
     font-size: 170%;
     font-weight: normal;
-    letter-spacing: -2%;
+
     margin-top: var(--space-m-l);
+  }
+
+  h2 > span {
+    text-transform: none;
+    display: block;
   }
 
   h2:has(+ h3) {
@@ -174,8 +179,8 @@
 
   h3 {
     font-weight: normal;
-    letter-spacing: -2%;
-    font-size: 130%;
+
+    font-size: 128%;
     margin-top: var(--space-xs);
     margin-bottom: var(--space-m);
     color: var(--color-grey-dark2);
@@ -192,11 +197,11 @@
   }
 
   h4 {
-    font-size: 100%;
+    font-size: 88%;
     font-weight: normal;
-    letter-spacing: -1%;
     margin-top: var(--space-m-l);
     margin-bottom: var(--space-xs);
+    font-style: italic;
   }
 
   footer h4,
@@ -207,8 +212,7 @@
   }
 
   #about h4 {
-    font-style: italic;
-    margin-top: var(--space-m);
+    margin-top: var(--space-m-l);
   }
 
   li,
@@ -243,7 +247,6 @@
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
     color: inherit;
-    letter-spacing: -1%;
     position: relative;
     transition: text-decoration-color 0.13s ease;
     font-size: 100%;
@@ -370,6 +373,19 @@
     block-size: 8px;
     background: var(--color-black);
     z-index: 10;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    inline-size: 100vw;
+    block-size: 8vh;
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(8px);
+    mask: linear-gradient(transparent, black);
+    z-index: 7;
   }
 
   footer {
