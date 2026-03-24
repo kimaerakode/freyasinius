@@ -19,6 +19,7 @@ const initHeaderMenu = () => {
   const hasOverlayMobileMenu = ["about", "portfolio"].includes(pageId);
   const toggle = document.createElement("button");
   let lockedY = 0;
+  let isScrollLocked = false;
 
   const saveHidden = (isHidden) => {
     try {
@@ -33,25 +34,27 @@ const initHeaderMenu = () => {
     if (!hasOverlayMobileMenu) return;
 
     if (isOpen) {
-      if (document.body.classList.contains("menu-open")) return;
+      if (isScrollLocked) return;
       lockedY = window.scrollY;
       document.documentElement.classList.add("menu-open");
       document.body.classList.add("menu-open");
       document.body.style.top = `-${lockedY}px`;
+      isScrollLocked = true;
       return;
     }
 
-    if (!document.body.classList.contains("menu-open")) return;
+    if (!isScrollLocked) return;
 
     const topOffset = Number.parseInt(document.body.style.top || "0", 10);
     const restoreY = Number.isNaN(topOffset) ? lockedY : Math.abs(topOffset);
     document.documentElement.classList.remove("menu-open");
     document.body.classList.remove("menu-open");
     document.body.style.top = "";
+    isScrollLocked = false;
     window.scrollTo(0, restoreY);
   };
 
-  const sync = () => {
+  const sync = ({ applyScrollLock = true } = {}) => {
     const isMobile = mobileMedia.matches;
     const isHidden = header.classList.contains("is-hidden");
     toggle.classList.toggle("is-visible", isMobile);
@@ -61,7 +64,8 @@ const initHeaderMenu = () => {
       "aria-label",
       isHidden ? "Show navigation" : "Hide navigation",
     );
-    lockScroll(isMobile && !isHidden);
+
+    if (applyScrollLock) lockScroll(isMobile && !isHidden);
   };
 
   const setHidden = (isHidden) => {
@@ -84,18 +88,20 @@ const initHeaderMenu = () => {
 
   window.addEventListener("resize", () => {
     if (!mobileMedia.matches) setHidden(false);
-    else sync();
+    else sync({ applyScrollLock: false });
   });
 
+  let storedHidden = null;
   try {
-    if (
-      mobileMedia.matches &&
-      sessionStorage.getItem(headerHiddenKey) === "1"
-    ) {
-      header.classList.add("is-hidden");
-    }
+    const raw = sessionStorage.getItem(headerHiddenKey);
+    storedHidden = raw === null ? null : raw === "1";
   } catch {
     // Ignore sessionStorage errors.
+  }
+
+  if (mobileMedia.matches && hasOverlayMobileMenu) {
+    if (storedHidden === null) header.classList.add("is-hidden");
+    else header.classList.toggle("is-hidden", storedHidden);
   }
 
   sync();
