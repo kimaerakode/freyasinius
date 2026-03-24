@@ -547,7 +547,9 @@
   }
 
   button:hover,
-  a:hover > button {
+  a:hover > button,
+  button:focus-visible,
+  a:focus-visible > button {
     background-color: var(--color-grey-light);
   }
 
@@ -770,6 +772,13 @@
       padding: var(--space-xxs) var(--space-m);
       cursor: pointer;
       display: none;
+    }
+
+    #portfolio .header-toggle:hover,
+    #about .header-toggle:hover,
+    #portfolio .header-toggle:focus-visible,
+    #about .header-toggle:focus-visible {
+      background-color: var(--color-grey-light);
     }
 
     #portfolio .header-toggle.is-visible,
