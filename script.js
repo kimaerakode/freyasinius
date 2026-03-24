@@ -18,8 +18,12 @@ const initHeaderMenu = () => {
 
   const hasOverlayMobileMenu = ["about", "portfolio"].includes(pageId);
   const toggle = document.createElement("button");
-  let lockedY = 0;
   let isScrollLocked = false;
+
+  // Ensure stale lock classes/styles never survive into a new page session.
+  document.documentElement.classList.remove("menu-open");
+  document.body.classList.remove("menu-open");
+  document.body.style.top = "";
 
   const saveHidden = (isHidden) => {
     try {
@@ -33,25 +37,20 @@ const initHeaderMenu = () => {
   const lockScroll = (isOpen) => {
     if (!hasOverlayMobileMenu) return;
 
+    // iOS/Android viewport resize during scroll can trigger unwanted scroll
+    // restoration. Keep menu behavior but avoid JS-driven page lock/restore.
     if (isOpen) {
       if (isScrollLocked) return;
-      lockedY = window.scrollY;
-      document.documentElement.classList.add("menu-open");
-      document.body.classList.add("menu-open");
-      document.body.style.top = `-${lockedY}px`;
       isScrollLocked = true;
       return;
     }
 
     if (!isScrollLocked) return;
 
-    const topOffset = Number.parseInt(document.body.style.top || "0", 10);
-    const restoreY = Number.isNaN(topOffset) ? lockedY : Math.abs(topOffset);
     document.documentElement.classList.remove("menu-open");
     document.body.classList.remove("menu-open");
     document.body.style.top = "";
     isScrollLocked = false;
-    window.scrollTo(0, restoreY);
   };
 
   const sync = ({ applyScrollLock = true } = {}) => {
