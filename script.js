@@ -1,187 +1,156 @@
-// Header/menu state
-const header = document.querySelector("header");
-const headerNav = document.querySelector("header nav");
+const pageId = document.body?.id;
 const mobileMedia = window.matchMedia("(max-width: 1280px)");
 const headerHiddenKey = "mobileHeaderHidden";
-const pageId = document.body?.id;
-const hasOverlayMobileMenu = pageId === "about" || pageId === "portfolio";
 
-let lockedScrollY = 0;
-let isScrollLocked = false;
-
-// Lock scroll only when the fullscreen mobile menu is open.
-const setScrollLock = (isLocked) => {
-  if (!hasOverlayMobileMenu) return;
-
-  if (isLocked) {
-    if (isScrollLocked) return;
-
-    lockedScrollY = window.scrollY;
-    document.documentElement.classList.add("menu-open");
-    document.body.classList.add("menu-open");
-    document.body.style.top = `-${lockedScrollY}px`;
-    isScrollLocked = true;
-    return;
+const getHashId = (value) => {
+  if (!value?.startsWith("#") || value.length < 2) return null;
+  try {
+    return decodeURIComponent(value.slice(1));
+  } catch {
+    return value.slice(1);
   }
-
-  if (!isScrollLocked) return;
-
-  const topOffset = Number.parseInt(document.body.style.top || "0", 10);
-  const restoreY = Number.isNaN(topOffset)
-    ? lockedScrollY
-    : Math.abs(topOffset);
-
-  document.documentElement.classList.remove("menu-open");
-  document.body.classList.remove("menu-open");
-  document.body.style.top = "";
-  isScrollLocked = false;
-  window.scrollTo(0, restoreY);
 };
 
-if (header && headerNav) {
-  // Mobile menu toggle button
-  const headerToggle = document.createElement("button");
-  headerToggle.type = "button";
-  headerToggle.className = "header-toggle";
-  headerToggle.textContent = "Close";
-  headerToggle.setAttribute("aria-label", "Hide navigation");
-  document.body.appendChild(headerToggle);
+const initHeaderMenu = () => {
+  const header = document.querySelector("header");
+  const nav = header?.querySelector("nav");
+  if (!header || !nav) return;
 
-  const setPersistedHidden = (isHidden) => {
+  const hasOverlayMobileMenu = ["about", "portfolio"].includes(pageId);
+  const toggle = document.createElement("button");
+  let lockedY = 0;
+
+  const saveHidden = (isHidden) => {
     try {
-      if (isHidden) {
-        sessionStorage.setItem(headerHiddenKey, "1");
-      } else {
-        sessionStorage.removeItem(headerHiddenKey);
-      }
+      if (isHidden) sessionStorage.setItem(headerHiddenKey, "1");
+      else sessionStorage.removeItem(headerHiddenKey);
     } catch {
-      // Ignore storage errors (e.g., private mode restrictions).
+      // Ignore sessionStorage errors.
     }
   };
 
-  const getPersistedHidden = () => {
-    try {
-      return sessionStorage.getItem(headerHiddenKey) === "1";
-    } catch {
-      return false;
+  const lockScroll = (isOpen) => {
+    if (!hasOverlayMobileMenu) return;
+
+    if (isOpen) {
+      lockedY = window.scrollY;
+      document.documentElement.classList.add("menu-open");
+      document.body.classList.add("menu-open");
+      document.body.style.top = `-${lockedY}px`;
+      return;
     }
+
+    const topOffset = Number.parseInt(document.body.style.top || "0", 10);
+    const restoreY = Number.isNaN(topOffset) ? lockedY : Math.abs(topOffset);
+    document.documentElement.classList.remove("menu-open");
+    document.body.classList.remove("menu-open");
+    document.body.style.top = "";
+    window.scrollTo(0, restoreY);
   };
 
-  const syncHeaderToggle = () => {
+  const sync = () => {
     const isMobile = mobileMedia.matches;
-    const isHeaderHidden = header.classList.contains("is-hidden");
-    const isMenuOpen = isMobile && !isHeaderHidden;
-
-    headerToggle.classList.toggle("is-visible", isMobile);
-    headerToggle.setAttribute("aria-hidden", String(!isMobile));
-    headerToggle.textContent = isHeaderHidden ? "Menu" : "Close";
-    headerToggle.setAttribute(
+    const isHidden = header.classList.contains("is-hidden");
+    toggle.classList.toggle("is-visible", isMobile);
+    toggle.setAttribute("aria-hidden", String(!isMobile));
+    toggle.textContent = isHidden ? "Menu" : "Close";
+    toggle.setAttribute(
       "aria-label",
-      isHeaderHidden ? "Show navigation" : "Hide navigation",
+      isHidden ? "Show navigation" : "Hide navigation",
     );
-
-    setScrollLock(isMenuOpen);
+    lockScroll(isMobile && !isHidden);
   };
 
-  // Close menu after tapping any navigation link on mobile.
-  headerNav.addEventListener("click", (event) => {
-    const link = event.target.closest("a");
-    if (!link || !mobileMedia.matches) return;
+  const setHidden = (isHidden) => {
+    header.classList.toggle("is-hidden", isHidden);
+    saveHidden(isHidden);
+    sync();
+  };
 
-    header.classList.add("is-hidden");
-    setPersistedHidden(true);
-    syncHeaderToggle();
+  toggle.type = "button";
+  toggle.className = "header-toggle";
+  document.body.appendChild(toggle);
+
+  nav.addEventListener("click", (event) => {
+    if (mobileMedia.matches && event.target.closest("a")) setHidden(true);
   });
 
-  headerToggle.addEventListener("click", () => {
-    const isHidden = header.classList.toggle("is-hidden");
-    setPersistedHidden(isHidden);
-    syncHeaderToggle();
+  toggle.addEventListener("click", () => {
+    setHidden(!header.classList.contains("is-hidden"));
   });
 
   window.addEventListener("resize", () => {
-    if (!mobileMedia.matches) {
-      header.classList.remove("is-hidden");
-      setPersistedHidden(false);
-    }
-    syncHeaderToggle();
+    if (!mobileMedia.matches) setHidden(false);
+    else sync();
   });
 
-  if (mobileMedia.matches && getPersistedHidden()) {
-    header.classList.add("is-hidden");
+  try {
+    if (
+      mobileMedia.matches &&
+      sessionStorage.getItem(headerHiddenKey) === "1"
+    ) {
+      header.classList.add("is-hidden");
+    }
+  } catch {
+    // Ignore sessionStorage errors.
   }
 
-  // Ensure UI and scroll lock are in sync on initial load.
-  syncHeaderToggle();
-}
+  sync();
+};
 
-// Portfolio section visibility state
-if (pageId === "portfolio") {
-  const portfolioArticles = Array.from(
+const initPortfolioTabs = () => {
+  if (pageId !== "portfolio") return;
+
+  const articles = Array.from(
     document.querySelectorAll("#portfolio .content.portfolio > article[id]"),
   );
+  const links = Array.from(
+    document.querySelectorAll("#portfolio .nav-bar a[href^='#']"),
+  );
+  if (articles.length === 0 || links.length === 0) return;
 
-  if (portfolioArticles.length > 0) {
-    const articleIds = new Set(portfolioArticles.map((article) => article.id));
-    const allHashLinks = Array.from(
-      document.querySelectorAll('#portfolio a[href^="#"]'),
-    );
+  const getArticleId = (targetId) => {
+    if (!targetId) return null;
+    const articleMatch = articles.find((article) => article.id === targetId);
+    if (articleMatch) return articleMatch.id;
+    const target = document.getElementById(targetId);
+    return target?.closest("article[id]")?.id ?? null;
+  };
 
-    const getHashId = (value) => {
-      if (!value || !value.startsWith("#") || value.length < 2) return null;
+  const render = (activeArticleId) => {
+    const showAll = !activeArticleId;
 
-      try {
-        return decodeURIComponent(value.slice(1));
-      } catch {
-        return value.slice(1);
-      }
-    };
-
-    const getArticleForTargetId = (targetId) => {
-      if (!targetId) return null;
-      if (articleIds.has(targetId)) return targetId;
-
-      const targetElement = document.getElementById(targetId);
-      const parentArticle = targetElement?.closest("article[id]");
-      return parentArticle?.id ?? null;
-    };
-
-    const setVisibleArticle = (articleId) => {
-      portfolioArticles.forEach((article) => {
-        article.hidden = article.id !== articleId;
-      });
-
-      allHashLinks.forEach((link) => {
-        const linkTargetId = getHashId(link.getAttribute("href"));
-        const linkArticleId = getArticleForTargetId(linkTargetId);
-        link.classList.toggle("active", linkArticleId === articleId);
-      });
-    };
-
-    const showFromHash = (hash) => {
-      const targetId = getHashId(hash);
-      const targetArticleId =
-        getArticleForTargetId(targetId) ?? portfolioArticles[0].id;
-
-      setVisibleArticle(targetArticleId);
-    };
-
-    allHashLinks.forEach((link) => {
-      const targetId = getHashId(link.getAttribute("href"));
-      const targetArticleId = getArticleForTargetId(targetId);
-      if (!targetArticleId) return;
-
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        showFromHash(`#${targetId}`);
-        history.replaceState(null, "", `#${targetId}`);
-      });
+    articles.forEach((article) => {
+      article.hidden = !showAll && article.id !== activeArticleId;
     });
 
-    window.addEventListener("hashchange", () => {
-      showFromHash(window.location.hash);
+    links.forEach((link) => {
+      const articleId = getArticleId(getHashId(link.getAttribute("href")));
+      link.classList.toggle(
+        "active",
+        !showAll && articleId === activeArticleId,
+      );
     });
+  };
 
-    showFromHash(window.location.hash);
-  }
-}
+  const applyHash = (hash) => {
+    render(getArticleId(getHashId(hash)));
+  };
+
+  links.forEach((link) => {
+    const hash = link.getAttribute("href");
+    if (!getArticleId(getHashId(hash))) return;
+
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      applyHash(hash);
+      history.replaceState(null, "", hash);
+    });
+  });
+
+  window.addEventListener("hashchange", () => applyHash(window.location.hash));
+  applyHash(window.location.hash);
+};
+
+initHeaderMenu();
+initPortfolioTabs();
