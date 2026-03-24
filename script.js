@@ -18,9 +18,29 @@ const initHeaderMenu = () => {
 
   const hasOverlayMobileMenu = ["about", "portfolio"].includes(pageId);
   const toggle = document.createElement("button");
+  let lockedScrollY = 0;
 
   // Ensure stale lock classes/styles never survive into a new page session.
   document.body.classList.remove("locked-scroll");
+  document.body.style.removeProperty("--locked-scroll-y");
+
+  const setScrollLocked = (shouldLock) => {
+    if (shouldLock) {
+      if (document.body.classList.contains("locked-scroll")) return;
+      lockedScrollY = window.scrollY;
+      document.body.style.setProperty(
+        "--locked-scroll-y",
+        `-${lockedScrollY}px`,
+      );
+      document.body.classList.add("locked-scroll");
+      return;
+    }
+
+    if (!document.body.classList.contains("locked-scroll")) return;
+    document.body.classList.remove("locked-scroll");
+    document.body.style.removeProperty("--locked-scroll-y");
+    window.scrollTo(0, lockedScrollY);
+  };
 
   const saveHidden = (isHidden) => {
     try {
@@ -36,7 +56,7 @@ const initHeaderMenu = () => {
       hasOverlayMobileMenu &&
       mobileMedia.matches &&
       !header.classList.contains("is-hidden");
-    document.body.classList.toggle("locked-scroll", shouldLock);
+    setScrollLocked(shouldLock);
   };
 
   const sync = () => {
