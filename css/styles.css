@@ -380,10 +380,10 @@
     position: fixed;
     bottom: 0;
     inline-size: 100vw;
-    block-size: 12svh;
+    block-size: 18svh;
     background-color: transparent;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     mask: linear-gradient(transparent, black);
     z-index: 7;
   }
@@ -652,19 +652,10 @@
 
     body {
       min-height: 100%;
-      background-color: transparent;
+      background-color: var(--color-ultralight);
       position: relative;
       z-index: 0;
       overscroll-behavior-y: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-color: var(--color-ultralight);
-      z-index: -1;
-      pointer-events: none;
     }
   }
 
