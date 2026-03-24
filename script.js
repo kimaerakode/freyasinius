@@ -18,12 +18,9 @@ const initHeaderMenu = () => {
 
   const hasOverlayMobileMenu = ["about", "portfolio"].includes(pageId);
   const toggle = document.createElement("button");
-  let isScrollLocked = false;
 
   // Ensure stale lock classes/styles never survive into a new page session.
-  document.documentElement.classList.remove("menu-open");
-  document.body.classList.remove("menu-open");
-  document.body.style.top = "";
+  document.body.classList.remove("locked-scroll");
 
   const saveHidden = (isHidden) => {
     try {
@@ -34,26 +31,15 @@ const initHeaderMenu = () => {
     }
   };
 
-  const lockScroll = (isOpen) => {
-    if (!hasOverlayMobileMenu) return;
-
-    // iOS/Android viewport resize during scroll can trigger unwanted scroll
-    // restoration. Keep menu behavior but avoid JS-driven page lock/restore.
-    if (isOpen) {
-      if (isScrollLocked) return;
-      isScrollLocked = true;
-      return;
-    }
-
-    if (!isScrollLocked) return;
-
-    document.documentElement.classList.remove("menu-open");
-    document.body.classList.remove("menu-open");
-    document.body.style.top = "";
-    isScrollLocked = false;
+  const updateScrollLockClass = () => {
+    const shouldLock =
+      hasOverlayMobileMenu &&
+      mobileMedia.matches &&
+      !header.classList.contains("is-hidden");
+    document.body.classList.toggle("locked-scroll", shouldLock);
   };
 
-  const sync = ({ applyScrollLock = true } = {}) => {
+  const sync = () => {
     const isMobile = mobileMedia.matches;
     const isHidden = header.classList.contains("is-hidden");
     toggle.classList.toggle("is-visible", isMobile);
@@ -63,8 +49,7 @@ const initHeaderMenu = () => {
       "aria-label",
       isHidden ? "Show navigation" : "Hide navigation",
     );
-
-    if (applyScrollLock) lockScroll(isMobile && !isHidden);
+    updateScrollLockClass();
   };
 
   const setHidden = (isHidden) => {
@@ -87,7 +72,7 @@ const initHeaderMenu = () => {
 
   window.addEventListener("resize", () => {
     if (!mobileMedia.matches) setHidden(false);
-    else sync({ applyScrollLock: false });
+    else sync();
   });
 
   let storedHidden = null;
