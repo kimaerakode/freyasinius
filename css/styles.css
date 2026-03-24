@@ -550,8 +550,7 @@
   }
 
   button:hover,
-  a:hover > button,
-  button:focus-visible,
+  header a:hover > button,
   a:focus-visible > button {
     background-color: var(--color-grey-light);
   }
