@@ -103,7 +103,7 @@
     font-family: var(--font-family);
     background-color: var(--color-black);
     scroll-padding-top: var(--space-m-l);
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     overflow-x: hidden;
   }
 
@@ -123,7 +123,8 @@
     overflow-wrap: break-word;
   }
 
-  p {
+  p,
+  p span {
     text-wrap: pretty;
     max-width: 70ch;
   }
@@ -280,9 +281,13 @@
   }
 
   body.locked-scroll {
-    overflow: hidden;
+    position: fixed;
+    top: var(--locked-scroll-y, 0px);
+    left: 0;
+    right: 0;
+    width: 100%;
     overscroll-behavior: none;
-    height: 100vh;
+    overflow: hidden;
   }
 
   main {
@@ -329,7 +334,7 @@
     height: fit-content;
     margin-left: var(--space-m);
     color: var(--color-black);
-    transition: 0.4s ease;
+    transition: color 0.25s ease;
   }
 
   header nav {
@@ -497,6 +502,7 @@
 
   .paragraph {
     margin-top: 1em;
+    display: block;
   }
 
   #deerar iframe {
@@ -532,11 +538,12 @@
     color: var(--color-black);
     background: var(--color-ultralight);
     outline: 1px solid var(--cblack);
-    padding-block: var(--space-xxs);
-    padding-inline: var(--space-m);
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-l);
     border: 1px solid var(--color-black);
     cursor: pointer;
     text-wrap: nowrap;
+    transition: padding 0.4s ease;
   }
 
   button:hover,
@@ -664,7 +671,6 @@
 
     #portfolio header,
     #about header {
-      inset: 0;
       display: flex;
       justify-content: center;
       position: fixed;
@@ -672,18 +678,21 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background-color: var(--color-ultralight);
+      background-color: #f1f1f1d4;
+      backdrop-filter: blur(10px);
       z-index: 9;
       overflow: hidden;
       transition:
         transform 0.25s ease,
-        opacity 0.25s ease;
+        opacity 0.25s ease,
+        background-color 0.25s ease;
     }
 
     #portfolio header.is-hidden,
     #about header.is-hidden {
       transform: translateY(calc(-100% - var(--space-s)));
       opacity: 0;
+      background-color: rgb(241 241 241 / 0%);
       visibility: hidden;
       pointer-events: none;
     }
@@ -700,7 +709,7 @@
     }
 
     header ul {
-      align-items: center !important;
+      align-items: center;
       justify-content: center;
     }
 
@@ -717,6 +726,13 @@
 
     #erosio .image-wrapper:last-child {
       grid-row: revert;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    p,
+    p span {
+      max-width: 97.5% 70ch;
     }
   }
 
@@ -763,6 +779,18 @@
   @media screen and (min-width: 920px) {
     .image-wrapper:hover button {
       opacity: 1;
+    }
+
+    button {
+      padding-block: var(--space-xxs);
+      padding-inline: var(--space-m);
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    #portfolio .header-toggle,
+    #about .header-toggle {
+      padding: var(--space-xs) var(--space-l);
     }
   }
 }
