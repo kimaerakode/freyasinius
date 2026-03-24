@@ -1,3 +1,4 @@
+// Header/menu state
 const header = document.querySelector("header");
 const headerNav = document.querySelector("header nav");
 const mobileMedia = window.matchMedia("(max-width: 1280px)");
@@ -6,25 +7,39 @@ const pageId = document.body?.id;
 const hasOverlayMobileMenu = pageId === "about" || pageId === "portfolio";
 
 let lockedScrollY = 0;
+let isScrollLocked = false;
 
+// Lock scroll only when the fullscreen mobile menu is open.
 const setScrollLock = (isLocked) => {
   if (!hasOverlayMobileMenu) return;
 
   if (isLocked) {
+    if (isScrollLocked) return;
+
     lockedScrollY = window.scrollY;
     document.documentElement.classList.add("menu-open");
     document.body.classList.add("menu-open");
     document.body.style.top = `-${lockedScrollY}px`;
+    isScrollLocked = true;
     return;
   }
+
+  if (!isScrollLocked) return;
+
+  const topOffset = Number.parseInt(document.body.style.top || "0", 10);
+  const restoreY = Number.isNaN(topOffset)
+    ? lockedScrollY
+    : Math.abs(topOffset);
 
   document.documentElement.classList.remove("menu-open");
   document.body.classList.remove("menu-open");
   document.body.style.top = "";
-  window.scrollTo(0, lockedScrollY);
+  isScrollLocked = false;
+  window.scrollTo(0, restoreY);
 };
 
 if (header && headerNav) {
+  // Mobile menu toggle button
   const headerToggle = document.createElement("button");
   headerToggle.type = "button";
   headerToggle.className = "header-toggle";
@@ -68,6 +83,7 @@ if (header && headerNav) {
     setScrollLock(isMenuOpen);
   };
 
+  // Close menu after tapping any navigation link on mobile.
   headerNav.addEventListener("click", (event) => {
     const link = event.target.closest("a");
     if (!link || !mobileMedia.matches) return;
@@ -95,5 +111,6 @@ if (header && headerNav) {
     header.classList.add("is-hidden");
   }
 
+  // Ensure UI and scroll lock are in sync on initial load.
   syncHeaderToggle();
 }
