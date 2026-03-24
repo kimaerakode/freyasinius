@@ -380,9 +380,12 @@
     padding-inline: var(--space-m);
     padding-block: var(--space-s);
     display: flex;
+    align-self: end;
     align-items: end;
     justify-content: end;
     z-index: 10;
+    position: sticky;
+    bottom: 0;
   }
 }
 
@@ -788,7 +791,8 @@
   }
 
   @media screen and (min-width: 920px) {
-    .image-wrapper:hover button {
+    .image-wrapper:hover button,
+    .image-wrapper:focus-within button {
       opacity: 1;
     }
 
