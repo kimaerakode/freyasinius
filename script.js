@@ -33,12 +33,15 @@ const initHeaderMenu = () => {
     if (!hasOverlayMobileMenu) return;
 
     if (isOpen) {
+      if (document.body.classList.contains("menu-open")) return;
       lockedY = window.scrollY;
       document.documentElement.classList.add("menu-open");
       document.body.classList.add("menu-open");
       document.body.style.top = `-${lockedY}px`;
       return;
     }
+
+    if (!document.body.classList.contains("menu-open")) return;
 
     const topOffset = Number.parseInt(document.body.style.top || "0", 10);
     const restoreY = Number.isNaN(topOffset) ? lockedY : Math.abs(topOffset);
