@@ -158,19 +158,12 @@ if (pageId === "portfolio") {
       });
     };
 
-    const showFromHash = (hash, shouldScroll = false) => {
+    const showFromHash = (hash) => {
       const targetId = getHashId(hash);
       const targetArticleId =
         getArticleForTargetId(targetId) ?? portfolioArticles[0].id;
 
       setVisibleArticle(targetArticleId);
-
-      if (!shouldScroll || !targetId) return;
-
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ block: "start" });
-      }
     };
 
     allHashLinks.forEach((link) => {
@@ -180,15 +173,15 @@ if (pageId === "portfolio") {
 
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        showFromHash(`#${targetId}`, true);
+        showFromHash(`#${targetId}`);
         history.replaceState(null, "", `#${targetId}`);
       });
     });
 
     window.addEventListener("hashchange", () => {
-      showFromHash(window.location.hash, true);
+      showFromHash(window.location.hash);
     });
 
-    showFromHash(window.location.hash, Boolean(window.location.hash));
+    showFromHash(window.location.hash);
   }
 }
