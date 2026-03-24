@@ -1,6 +1,6 @@
 # Freya Sinius portfolio website
 
-Design and development by Rosalina Hundahl Frey aka kaimaerakode 2026.
+Design and development by Rosalina Hundahl Frey aka kimaerakode 2026.
 
 GitHub: https://github.com/kimaerakode
 
