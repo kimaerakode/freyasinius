@@ -9,6 +9,21 @@
     <link
       rel="stylesheet"
       href="../css/styles.css" />
+    <link
+      rel="preload"
+      href="../assets/fonts/nimbus-sans-d-ot-400.woff2"
+      as="font"
+      type="font/woff2" />
+    <link
+      rel="preload"
+      href="../assets/fonts/NimbusSanL-Reg.otf"
+      as="font"
+      type="font/otf" />
+    <link
+      rel="preload"
+      href="../assets/fonts/NimbusSanL-ReguCond.woff2"
+      as="font"
+      type="font/woff2" />
     <script
       src="../script.js"
       defer></script>
@@ -18,10 +33,9 @@
       <nav>
         <ul>
           <li>
-            
             <a href="./../index.html"><button>Freya Sinius</button></a>
           </li>
-         <div class="nav">
+          <div class="nav">
             <li>
               <a
                 class="menu"
@@ -31,11 +45,10 @@
             </li>
           </div>
           <li>
-          
             <a
               href="./"
-              class="active"
-              >  <button>About</button></a
+              class="active">
+              <button>About</button></a
             >
           </li>
         </ul>
@@ -58,101 +71,114 @@
             >
           </p>
 
-          <ul>
-            <h2>Resume</h2>
+          <section aria-labelledby="resume-heading">
+            <h2 id="resume-heading">Resume</h2>
+
             <h3>Upcoming</h3>
-            <li>
-              <h4>Music video</h4>
-             <span>The Head (this Body Deserves), <span>Kindsight</span></span>
-                <span>Director, producer & production designer</span>
-              
-            </li>
-            <li>
-              <h4>Short</h4><span>SÅ LÆNGE DET ER GALSKAB, <span>Dir. Andreas Højbjerg Buhl</span></span><span>Production designer</span>
-            </li>
-            <li><h4>Short</h4>
-            <p><span>Ånd lettet ud, <span>Dir. Pelle Gøtze</span></span><span>Prop master</span></p></li>
-            <li>
-              <h4>Feature</h4>
-              <p>
-                <span>Finer-Bots, <span>dir. Emilia Tusindfryd Bechraki</span></span>
-                <span> Production designer & propmaker</span>
-              </p>
-            </li>
-             <li>
-              <h4>Feature</h4>
-              <p>
-                <span>Grise kan ikke klatre, <span>dir. Lasse Spang Olsen</span></span>
-                <span>Props assistent</span>
-              </p>
-            </li>
-            <li>
-              <h4>Short</h4>
-              <p>
-                <span>
-                  Single Beds, <span>dir. Morten Holst & Jens Christian Buskov
-                  Lund</span></span
+            <ul class="resume-list">
+              <li>
+                <h4>Music video</h4>
+                <span
+                  >The Head (this Body Deserves), <span>Kindsight</span></span
                 >
-                <span> Production designer </span>
-              </p>
-            </li>
-           
-          </ul>
-          <ul>
+                <span>Director, producer & production designer</span>
+              </li>
+              <li>
+                <h4>Short</h4>
+                <span
+                  >SÅ LÆNGE DET ER GALSKAB,
+                  <span>Dir. Andreas Højbjerg Buhl</span></span
+                >
+                <span>Production designer</span>
+              </li>
+              <li>
+                <h4>Short</h4>
+                <span>Ånd lettet ud, <span>Dir. Pelle Gøtze</span></span>
+                <span>Prop master</span>
+              </li>
+              <li>
+                <h4>Feature</h4>
+                <span
+                  >Finer-Bots,
+                  <span>Dir. Emilia Tusindfryd Bechraki</span></span
+                >
+                <span>Production designer & propmaker</span>
+              </li>
+              <li>
+                <h4>Feature</h4>
+                <span
+                  >Grise kan ikke klatre,
+                  <span>Dir. Lasse Spang Olsen</span></span
+                >
+                <span>Props assistant</span>
+              </li>
+              <li>
+                <h4>Short</h4>
+                <span
+                  >Single Beds,
+                  <span
+                    >Dir. Morten Holst & Jens Christian Buskov Lund</span
+                  ></span
+                >
+                <span>Production designer</span>
+              </li>
+            </ul>
+
             <h3>Previous</h3>
-            <li>
-              <h4>Music video</h4>
-              <p>
+            <ul class="resume-list">
+              <li>
+                <h4>Music video</h4>
                 <span>Sober Love, <span>yvonnes</span></span>
                 <span>Director, producer & production designer</span>
-              </p>
-            </li>
-            <li>
-              <h4>Short</h4>
-              <p>
-                <span>Følelsernes Opdragelse, <span>dir. Andreas Højbjerg Buhl</span></span>
-                <span>Production designer</span>
-              </p>
-            </li>
-            <li>
-              <h4>Super16 short</h4>
-              <p>
+              </li>
+              <li>
+                <h4>Short</h4>
                 <span
-                  >Rødder,  <span>dir. Sabrina Ferguen</span></span
+                  >Følelsernes Opdragelse,
+                  <span>Dir. Andreas Højbjerg Buhl</span></span
                 >
-                <span>Producer’s assistent</span>
-              </p>
-            </li>
-            <li>
-              <li><h4>TV-series</h4><p><span>Scooter Boys, <span>Jonatan Nothlev</span></span><span>Producer’s assistant (Frau film intern) </span></p></li>
-               <li><h4>Short</h4>
-            <p><span>Bureauet for offentlig udskamning, <span>Dir. Muhamed Vejzovic</span></span><span>Production designer</span></p></li>
-            <li>
-              <h4>TV-series</h4>
-              <p>
-                <span>200 kilo, <span>dir. Sivert Lendorph</span></span>
-                <span>Props assistent</span>
-              </p>
-            </li>
-           
-              <h4>Short</h4>
-              <p>
-                <span>Undergravet, <span>dir. Thomas Sander Klan</span></span>
                 <span>Production designer</span>
-              </p>
-            </li>
-            <li>
-              <h4>Super16 short</h4>
-              <p>
-                <span>Solo Rosa, <span>dir. Sif Lina Lambæk</span></span>
+              </li>
+              <li>
+                <h4>Super16 short</h4>
+                <span>Rødder, <span>Dir. Sabrina Ferguen</span></span>
+                <span>Producer’s assistant</span>
+              </li>
+              <li>
+                <h4>TV-series</h4>
+                <span>Scooter Boys, <span>Jonatan Nothlev</span></span>
+                <span>Producer’s assistant (Frau film intern)</span>
+              </li>
+              <li>
+                <h4>Short</h4>
+                <span
+                  >Bureauet for offentlig udskamning,
+                  <span>Dir. Muhamed Vejzovic</span></span
+                >
+                <span>Production designer</span>
+              </li>
+              <li>
+                <h4>TV-series</h4>
+                <span>200 kilo, <span>Dir. Sivert Lendorph</span></span>
                 <span>Props assistant</span>
-              </p>
-            </li>
-          </ul>
-          <ul>
+              </li>
+              <li>
+                <h4>Short</h4>
+                <span>Undergravet, <span>Dir. Thomas Sander Klan</span></span>
+                <span>Production designer</span>
+              </li>
+              <li>
+                <h4>Super16 short</h4>
+                <span>Solo Rosa, <span>Dir. Sif Lina Lambæk</span></span>
+                <span>Props assistant</span>
+              </li>
+            </ul>
+
             <h3>Recommendations</h3>
-            <li>TBA</li>
-          </ul>
+            <ul>
+              <li>TBA</li>
+            </ul>
+          </section>
         </div>
       </div>
     </main>

@@ -9,6 +9,21 @@
     <link
       rel="stylesheet"
       href="../css/styles.css" />
+    <link
+      rel="preload"
+      href="../assets/fonts/nimbus-sans-d-ot-400.woff2"
+      as="font"
+      type="font/woff2" />
+    <link
+      rel="preload"
+      href="../assets/fonts/NimbusSanL-Reg.otf"
+      as="font"
+      type="font/otf" />
+    <link
+      rel="preload"
+      href="../assets/fonts/NimbusSanL-ReguCond.woff2"
+      as="font"
+      type="font/woff2" />
     <script
       src="../script.js"
       defer></script>
@@ -487,16 +502,5 @@
       </div>
     </main>
     <footer><h4>2026</h4></footer>
-    <script>
-      window.addEventListener("load", () => {
-        const { hash } = window.location;
-        if (!hash) return;
-
-        const target = document.querySelector(hash);
-        if (target) {
-          target.scrollIntoView({ block: "start" });
-        }
-      });
-    </script>
   </body>
 </html>
