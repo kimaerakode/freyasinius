@@ -380,10 +380,10 @@
     position: fixed;
     bottom: 0;
     inline-size: 100vw;
-    block-size: 8vh;
+    block-size: 12svh;
     background-color: transparent;
     -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(2px);
     mask: linear-gradient(transparent, black);
     z-index: 7;
   }
@@ -660,7 +660,7 @@
 
     body::after {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
       background-color: var(--color-ultralight);
       z-index: -1;
@@ -698,6 +698,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
+      height: 100dvh;
       background-color: #f1f1f1d4;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
